@@ -197,6 +197,19 @@ textarea {
   font-family: 'roboto', sans-serif;
 }
 
+/* Sticky menu styles */
+.masthead-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures menu stays above other content */
+}
+
+/* Add padding-top to body or main content to prevent overlap */
+body {
+  padding-top: 60px; /* Adjust to match your menu height */
+}
 /*--------------------------------------------------------------
 Forms
 --------------------------------------------------------------*/
@@ -2346,7 +2359,11 @@ body.single.single-post .site-main {
 }
 
 .sticky {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .post .entry-title, .post .entry-title a {
