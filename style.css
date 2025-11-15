@@ -4482,9 +4482,9 @@ Portfolio Listing
   flex-direction: row;
 }
 .portfolio-listing-wrap.zig-zag .portfolio-list .pl-content-wrap .pl-content {
-  -ms-flex: 0 0 41.666667%;
-  flex: 0 0 41.666667%;
-  max-width: 41.666667%;
+  -ms-flex: 0 0 51.666667%;
+  flex: 0 0 51.666667%;
+  max-width: 51.666667%;
   padding-left: 60px;
   padding-top: 12px;
 }
