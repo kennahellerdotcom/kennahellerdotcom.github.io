@@ -1,439 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Document Title -->
-    <title>Kenna Heller | Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kenna Heller — Posters, Illustration, Merch &amp; Branding</title>
+  <link rel="icon" type="image/png" href="assets/images/logo/logo2x.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount:wght@500;600&family=Inclusive+Sans&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site/shared.css">
+  <style>
+    /* Tokens mirror the Figma file (Portfolio variable collection + text styles) */
+    :root {
+      --ink: #22272b; --line: #e7e2da; --orange: #ff8600; --bg: #ffffff; --gap: 14px;
+      --display: 'Bitcount', system-ui, sans-serif;
+      --ui: 'Rubik Mono One', system-ui, sans-serif;
+      --body: 'Inclusive Sans', system-ui, sans-serif;
+      --caption: 'Inclusive Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); }
+    a { color: inherit; }
+    /* Pixel cursors (cursor-arrow / cursor-hand, SVG with PNG fallback). Hotspots: arrow tip, hand fingertip */
+    html { cursor: url(site/cursor-arrow.svg) 0 0, url(site/cursor-arrow.png) 0 0, auto; }
+    a, button, .lb-btn { cursor: url(site/cursor-hand.svg) 11 1, url(site/cursor-hand.png) 11 1, pointer; }
 
-    <!-- Metas -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="CaliberThemes" />
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    :root { --head-h: 76px; } /* kept in sync with the real header height by JS */
+    #work { scroll-margin-top: var(--head-h); }
+    #contact { scroll-margin-top: 90px; }
+    /* Full-screen viewer caption: title + client only, same voice as the hover state */
+    .lb-cap b { font-family: var(--ui); font-weight: 400; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+    .lb-cap span { font-family: var(--caption); font-size: 15px; opacity: .7; }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    header { position: sticky; top: 0; z-index: 10; background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+    header.scrolled { border-color: var(--line); }
+    .bar { max-width: 1600px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; gap: 24px; }
+    .logo img { height: 40px; width: auto; display: block; }
+    .bar nav { margin-left: auto; display: flex; gap: 28px; font-family: var(--ui); font-size: 14px; }
+    .bar nav a { text-decoration: none; }
+    .bar nav a:hover { color: var(--orange); }
 
-    <!-- Links -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link rel='stylesheet' id='bootstrap-css' href='assets/lib/bootstrap/css/bootstrap.min.css' type='text/css'
-        media='all' />
-    <link rel='stylesheet' id='font-awesome-css' href='assets/css/icons/font-awesome.min.css' type='text/css'
-        media='all' />
-    <link rel='stylesheet' id='swiper-css' href='assets/lib/swiper/css/swiper.min.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='cubeportfolio-css' href='assets/lib/cubeportfolio/css/cubeportfolio.min.css'
-        type='text/css' media='all' />
+    .intro { max-width: 1600px; margin: 0 auto; padding: 56px 32px 12px; }
+    .intro h1 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(26px, 3.6vw, 52px); line-height: 1.04; letter-spacing: -.02em; }
 
-    <link rel='stylesheet' id='main-css' href='style.css' type='text/css' media='all' />
+    /* Chips dock under the header once you scroll past them, so categories are always one click away */
+    .filterbar { position: sticky; top: var(--head-h); z-index: 9; background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .filterbar.stuck { border-color: var(--line); }
+    .filters { max-width: 1600px; margin: 0 auto; padding: 12px 32px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .filters button { font-family: var(--ui); font-size: 12px; line-height: 1.2; padding: 9px 16px; border-radius: 999px;
+      border: 4px solid var(--orange); background: var(--line); color: var(--ink); transition: background .15s, color .15s; }
+    .filters button:hover { background: #fff; }
+    .filters button[aria-pressed="true"] { background: var(--ink); color: var(--line); border-width: 3px; padding: 10px 17px; }
+    .filters button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
+    /* Masonry: JS drops each piece into the shortest column, same as the Figma frame */
+    .wall { max-width: 1600px; margin: 0 auto; padding: 14px 32px 80px; display: flex; gap: var(--gap); align-items: flex-start; }
+    .col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--gap); }
+    .tile { display: block; width: 100%; padding: 0; border: 0; background: var(--line);
+      position: relative; overflow: hidden; border-radius: 4px; text-align: left; color: inherit; font: inherit; }
+    .tile img { width: 100%; height: auto; display: block; transition: filter .3s; }
+    .tile .cap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; padding: 20px; text-align: center; color: #fff; opacity: 0; transition: opacity .2s;
+      /* layers: square dot grid, fine grain, dark wash */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='43' height='43'%3E%3Crect x='19' y='19' width='5' height='5' fill='%23fff' fill-opacity='.22'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .55 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+        linear-gradient(rgba(16, 16, 18, .74), rgba(16, 16, 18, .74));
+      background-position: 0 0, 0 0, 0 0; }
+    .tile .cap b { font-family: var(--ui); font-weight: 400; font-size: clamp(14px, 1.35vw, 19px); line-height: 1.2; letter-spacing: .08em;
+      text-transform: uppercase; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); max-width: 16ch; }
+    .tile .cap span { font-family: var(--caption); font-size: clamp(13px, 1.1vw, 16px); color: #d6d6d6; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
+    /* Product shots mostly sit on pure white: give them a soft card so they hold the grid on the white page */
+    .tile[data-cat="merch"], .tile[data-cat="branding"] { background: #f3f1ec; }
+    .tile[data-cat="merch"] img, .tile[data-cat="branding"] img { mix-blend-mode: multiply; }
+    .tile:hover img, .tile:focus-visible img { filter: saturate(.7) blur(.6px); }
+    .tile:hover .cap, .tile:focus-visible .cap { opacity: 1; animation: tile-grain .5s steps(4) infinite; }
+    @keyframes tile-grain {
+      0% { background-position: 0 0, 0 0, 0 0; } 25% { background-position: 0 0, -37px 22px, 0 0; }
+      50% { background-position: 0 0, 51px -64px, 0 0; } 75% { background-position: 0 0, -12px 88px, 0 0; } 100% { background-position: 0 0, 70px 15px, 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .tile:hover .cap, .tile:focus-visible .cap { animation: none; } }
+    .tile:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
 
+    footer { border-top: 1px solid var(--line); }
+    .foot { max-width: 1600px; margin: 0 auto; padding: 56px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .foot h2 { margin: 0 0 12px; font-family: var(--display); font-weight: 500; font-size: 28px; line-height: 1.2; letter-spacing: -.01em; }
+    .foot p { margin: 0; line-height: 1.55; max-width: 440px; }
+    .foot .mail { display: inline-block; margin-top: 10px; font-family: var(--ui); font-size: 16px; line-height: 1.2; letter-spacing: -.01em;
+      text-decoration: none; padding-bottom: 2px; border-bottom: 4px solid var(--orange); }
+    .foot .mail:hover { color: var(--orange); }
+
+    @media (max-width: 700px) {
+      :root { --gap: 8px; }
+      .bar { padding: 14px 16px; }
+      .logo img { height: 32px; }
+      .bar nav { gap: 18px; font-size: 12px; }
+      .intro { padding: 28px 16px 8px; }
+      /* Wrap onto a second row rather than hiding chips off-screen */
+      .filters { padding: 10px 16px; gap: 6px; }
+      .filters button { font-size: 11px; padding: 7px 12px; border-width: 3px; }
+      .filters button[aria-pressed="true"] { padding: 7px 12px; }
+      .wall { padding: 6px 8px 56px; }
+      .tile { border-radius: 2px; }
+      .tile .cap { display: none; }
+      .foot { grid-template-columns: 1fr; padding: 40px 16px; }
+    }
+  </style>
 </head>
-
 <body>
-
-    <!-- Page Wrapper -->
-    <div id="page" class="site">
-       <header id="masthead" class="site-header standard sticky" role="banner">
-            <div class="container">
-                <div id="site-branding">
-                    <a class="logo-brand" href="/">
-                        <img class="logo" src="assets/images/logo/logo.png" alt="Logo">
-                        <img class="retina-logo" src="assets/images/logo/logo2x.png" alt="Retina Logo">
-                    </a>
-                </div><!-- .site-branding -->
-                <span id="ham-trigger-wrap">
-                    <span class="ham-trigger">
-                        <span></span>
-                    </span>
-                </span>
-                <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="Top Menu">
-                    <ul id="top-menu" class="menu">
-                        <li class="has-children current-menu-parent"><a href="#">Work</a>
-                            <ul class="sub-menu">
-                                <li><a href="/amc.html">AMC Networks</a></li>
-                                <li><a href="/shudder.html">Shudder</a></li>
-                                <li><a href="/ifc.html">IFC</a></li>
-                                <li><a href="/fearfest.html">Fear Fest</a></li>
-                                <li><a href="/paramount.html">Paramount Pictures</a></li>
-                                <li><a href="/hhcla.html">Homeless Health Care LA</a></li>
-                                <li><a href="/oddo.html">Oddo Family Foundation</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/fun.html">Fun</a></li>
-                        <li><a href="/contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-            </div><!-- .wrap -->
-        </header><!-- #masthead -->
-
-        <div class="site-content-contain">
-            <div id="content" class="site-content">
-                <div id="primary" class="content-area">
-                    <main id="main" class="site-main" role="main">
-                        <article class="page">
-                            <div class="entry-content">
-
-                                
-                                <div class="container m-b-75">
-                                    <div class="heading-block text-left" style="margin-top: 20px">
-                                       <h3></h3>
-                                    </div>
-                                        <div class="row"> 
-                                            <div class="col-sm-12">
-                                                <div id="portfolio-swiper-slider" class="swiper-container multiple-projects swiper-caption-ribbon" data-slides-per-view="3" data-space-between="30" data-centered-slides="false" data-loop="true" data-effect="slide" data-autoplay-delay="3500" data-disable-on-interaction="true" data-pagination-type="bullets" data-tablet-slide-per-view="2" data-tablet-space-between="30" data-mobile-slide-per-view="1" data-mobile-space-between="30">
-                                                    <div class="swiper-wrapper">
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/24.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/25.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/23.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/22.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/21.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/a.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/1.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/2.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/3.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/4.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/5.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/6.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/7.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/8.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/9.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-                                                        <div class="swiper-slide">
-                                                            <div class="swiper-slide-content-wrap">
-                                                                <div class="swiper-slide-item">	
-                                                                        <div class="swiper-image-wrap">								
-                                                                            <img width="800" height="1000" alt="" src="assets/images/portfolio/masonry/shudder/keyart/10.jpg">
-                                                                        </div>
-                                                                </div>
-                                                            </div>			
-                                                        </div>
-
-
-                                                        
-
-                                                    </div>
-
-                                                    <div class="swiper-pagination"></div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   
-
-                                <div class="container m-t-30 m-b-100">
-
-                                                        <div class="heading-block text-left" style="margin-top: 20px">
-                                                        <h3>Career Highlights</h3>
-                                                        </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="portfolio-listing-wrap zig-zag">
-
-                                                <div class="portfolio-list" style="margin-top: 20px">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/amc.html">    
-                                                            <img src="assets/images/portfolio/zig-zag/amc.jpg"
-                                                                alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>AMC Networks</h3>
-                                                            <p>A selection of work created for AMC Networks 
-                                                            across key art, brand, and event initatives.
-                                                            </p>
-                                                            <div class="btn-container">
-                                                                <a href="/amc.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                 <div class="portfolio-list" style="margin-top: 20px">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/shudder.html">
-                                                            <img src="assets/images/portfolio/zig-zag/shudder.jpg"
-                                                                alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>Shudder</h3>
-                                                            <p>Works created to support AMC Network's horror-forward
-                                                            <i>screaming</i> service, Shudder, as lead
-                                                                designer.
-                                                            </p>
-                                                            <div class="btn-container">
-                                                                <a href="/shudder.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                 <div class="portfolio-list" style="margin-top: 20px">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/ifc.html">
-                                                            <img src="assets/images/portfolio/zig-zag/IFC.jpg"
-                                                                alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>IFC</h3>
-                                                            <p>Rebrand design for Independent Film Comapny
-                                                            as Senior Designer at AMC Networks.
-                                                            </p>
-                                                            <div class="btn-container">
-                                                                <a href="/ifc.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="portfolio-list" style="margin-top: 20px">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/fearfest.html">
-                                                                <img src="assets/images/portfolio/zig-zag/fearfest.jpg"
-                                                                alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>AMC Fear Fest</h3>
-                                                            <p>Brand identity and design for AMC's annual
-                                                            October campaign, Fear Fest, as lead designer.
-                                                            </p>
-                                                            <div class="btn-container">
-                                                                <a href="/fearfest.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="portfolio-list">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/paramount.html">
-                                                            <img src="assets/images/portfolio/zig-zag/paramount.jpg"
-                                                                alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>Paramount Pictures</h3>
-                                                            <p>A selection of work created for Paramount's In-Theatre
-                                                            Marketing Department as an employee and a freelance
-                                                                artist.</p>
-                                                            <div class="btn-container">
-                                                                <a href="/paramount.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="portfolio-list">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/hhcla.html">
-                                                            <img src="assets/images/portfolio/zig-zag/hhcla.jpg" alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>Homeless Healthcare LA</h3>
-                                                            <p>Brand development for a foundation that aims to
-                                                                destigmatize drug overdoses, plus other projects
-                                                                supporting HHCLA's mission to fight for impoverished
-                                                                communities.</p>
-                                                            <div class="btn-container">
-                                                                <a href="/hhcla.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="portfolio-list">
-                                                    <div class="pl-content-wrap">
-                                                        <div class="pl-media">
-                                                            <a href="/oddo.html">   
-                                                            <img src="assets/images/portfolio/zig-zag/off.jpg" alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="pl-content">
-                                                            <h3>Oddo Family Foundation</h3>
-                                                            <p>Brand identity design for Oddo, a foundation which
-                                                                provides the means to affording education.</p>
-                                                            <div class="btn-container">
-                                                                <a href="/oddo.html">See More</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!--End container-->
-
-                            </div>
-                        </article>
-                    </main><!-- #main -->
-                </div><!-- #primary -->
-                <a id="gotoTop" href="#" class="scroll-top-link" data-easing="easeOutQuad" data-speed="700"><i
-                        class="fa fa-angle-up"></i></a>
-            </div><!-- #content -->
-
-            <footer id="footer" class="site-footer standard" role="contentinfo">
-                <div class="container">
-                    <div class="site-info">
-                        <p class="copyright">
-                            &copy; 2023 Kenna Heller
-                        </p>
-                    </div>
-
-                </div>
-            </footer>
-        </div> <!-- .site-content-contain -->
+  <header>
+    <div class="bar">
+      <a class="logo" href="#"><img src="assets/images/logo/logo-horizontal2x.png" alt="Kenna Heller" width="409" height="100"></a>
+      <nav><a href="#work">Work</a><a href="#contact">Contact</a></nav>
     </div>
-    <!-- Page Wrapper Ends -->
+  </header>
 
-    <!--  Scripts -->
-    <script type='text/javascript' src='assets/js/vendor/jquery-1.12.4.min.js'></script>
-    <script type='text/javascript' src='assets/js/vendor/TweenMax.min.js'></script>
-    <script type='text/javascript' src='assets/js/vendor/headsup.min.js'></script>
-    <script type='text/javascript' src='assets/js/vendor/jquery.easing.min.1.3.js'></script>
-    <script type='text/javascript' src='assets/lib/cubeportfolio/js/jquery.cubeportfolio.min.js'></script>
-    <script type='text/javascript' src='assets/lib/swiper/js/swiper.min.js'></script>
+  <section class="intro" id="work">
+    <h1>I like movies and design :)</h1>
+  </section>
 
-    <script type='text/javascript' src='assets/js/main.js'></script>
-    <!--  Scripts Ends -->
+  <div class="filterbar"><div class="filters" role="toolbar" aria-label="Filter work"></div></div>
+
+  <main class="wall" id="wall"></main>
+
+  <footer id="contact">
+    <div class="foot">
+      <div>
+        <h2>Hello, I am Kenna.</h2>
+        <p>Designer creating branding, key art, &amp; merch for film &amp; TV studios. Illustrations and hand drawn lettering for commission and for my own enjoyment. Work included for companies including Shudder, AMC Networks, IFC Films and Paramount Pictures.</p>
+      </div>
+      <div>
+        <p>Commissions, merch &amp; freelance. Also down to just chat.</p>
+        <a class="mail" href="mailto:kennaellen@gmail.com">kennaellen@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="site/works.js"></script>
+  <script src="site/shared.js"></script>
+  <script src="site/grain.js"></script>
+  <script>
+    (function () {
+      var wall = document.getElementById('wall'), bar = document.querySelector('.filters'), filterbar = document.querySelector('.filterbar');
+      var head = document.querySelector('header');
+      var all = KH.works, filter = 'poster'; // the wall opens on Posters
+      var visible = all.filter(function (w) { return w.cat === filter; });
+
+      // One tile element per piece, reused across filter changes and resizes
+      var tiles = all.map(function (w) {
+        var b = document.createElement('button');
+        b.className = 'tile';
+        b.dataset.cat = w.cat;
+        b.appendChild(KH.img(w, '(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 25vw'));
+        b.insertAdjacentHTML('beforeend', '<div class="cap"><b>' + w.title + '</b><span>' + w.client + '</span></div>');
+        b.onclick = function () { KH.open(visible, visible.indexOf(w), { origin: function (x) { return tiles[all.indexOf(x)]; } }); };
+        return b;
+      });
+
+      function colCount() { return innerWidth <= 700 ? 2 : innerWidth <= 1100 ? 3 : 4; }
+      var lastCols = 0;
+      function layout(force) {
+        var n = colCount();
+        if (!force && n === lastCols) return;
+        lastCols = n;
+        wall.innerHTML = '';
+        var cols = [], h = [];
+        for (var i = 0; i < n; i++) { var c = document.createElement('div'); c.className = 'col'; wall.appendChild(c); cols.push(c); h.push(0); }
+        // heights in column-widths (aspect ratio + a bit for the gap), so the maths holds at any width
+        all.forEach(function (w, i) {
+          if (filter !== 'all' && w.cat !== filter) return;
+          var min = Math.min.apply(null, h), k = 0;
+          while (h[k] > min + 1e-6) k++; // ties go left
+          cols[k].appendChild(tiles[i]);
+          h[k] += w.h / w.w + 0.04;
+        });
+      }
+
+      function revealWall() {
+        if (KH.reduce) return;
+        var k = 0;
+        wall.querySelectorAll('.tile').forEach(function (t) {
+          var r = t.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          t.animate([{ opacity: 0, transform: 'translateY(18px) scale(.98)' }, { opacity: 1, transform: 'none' }],
+            { duration: 420, delay: Math.min(k++, 16) * 35, easing: KH.EASE, fill: 'backwards' });
+        });
+      }
+
+      Object.keys(KH.CATS).map(function (k) { return [k, KH.CATS[k]]; }).concat([['all', 'All']]).forEach(function (o) {
+        var b = document.createElement('button');
+        b.textContent = o[1];
+        b.setAttribute('aria-pressed', o[0] === filter);
+        b.onclick = function () {
+          bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+          filter = o[0];
+          visible = all.filter(function (w) { return filter === 'all' || w.cat === filter; });
+          layout(true);
+          // if we're deep in the wall, bring its top back up under the docked chips before the new set rises in
+          var dock = head.offsetHeight + filterbar.offsetHeight;
+          if (wall.getBoundingClientRect().top < dock - 1) {
+            scrollTo({ top: wall.getBoundingClientRect().top + scrollY - dock, behavior: KH.reduce ? 'auto' : 'smooth' });
+            afterScroll(revealWall);
+          } else revealWall();
+        };
+        bar.appendChild(b);
+      });
+
+      function afterScroll(fn) {
+        var fired = false, go = function () { if (!fired) { fired = true; removeEventListener('scrollend', go); fn(); } };
+        addEventListener('scrollend', go);
+        setTimeout(go, 900); // browsers without scrollend
+      }
+      var footInner = document.querySelector('.foot');
+      document.querySelectorAll('nav a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var target = document.querySelector(a.getAttribute('href'));
+          if (!target) return;
+          e.preventDefault();
+          history.replaceState(null, '', a.getAttribute('href'));
+          target.scrollIntoView({ behavior: KH.reduce ? 'auto' : 'smooth' });
+          if (KH.reduce) return;
+          afterScroll(target.id === 'work' ? revealWall : function () {
+            [].forEach.call(footInner.children, function (c, i) {
+              c.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
+                { duration: 480, delay: i * 90, easing: KH.EASE, fill: 'backwards' });
+            });
+          });
+        });
+      });
+
+      layout(true);
+      addEventListener('resize', function () { layout(false); });
+      // Header height drives where the chip bar docks; the divider line moves to whichever bar is lowest
+      function syncHead() { document.documentElement.style.setProperty('--head-h', head.offsetHeight + 'px'); onScroll(); }
+      function onScroll() {
+        var stuck = filterbar.getBoundingClientRect().top <= head.offsetHeight + 0.5 && scrollY > 10;
+        filterbar.classList.toggle('stuck', stuck);
+        head.classList.toggle('scrolled', scrollY > 10 && !stuck);
+      }
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', syncHead);
+      if (document.fonts) document.fonts.ready.then(syncHead);
+      syncHead();
+    })();
+  </script>
 </body>
-
 </html>

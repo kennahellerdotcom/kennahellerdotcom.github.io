@@ -1,0 +1,20 @@
+/* Lightbox shared by all three options. Image size is set by shared.js so it can animate from the tile. */
+.lb { position: fixed; inset: 0; z-index: 100; display: none; color: #f4f1ec; }
+.lb.open { display: block; }
+.lb-bg { position: absolute; inset: 0; background: rgba(12, 12, 12, .94); }
+.lb-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 56px 64px 24px; }
+.lb-stage img { display: block; max-width: none; will-change: transform, opacity; }
+.lb-cap { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; font-size: 14px; min-height: 40px; }
+.lb-cap b { font-weight: 600; }
+.lb-cap span { opacity: .65; }
+.lb-btn { position: absolute; z-index: 1; background: none; border: 0; color: inherit; font: inherit; font-size: 28px; line-height: 1;
+  width: 48px; height: 48px; cursor: pointer; border-radius: 50%; }
+.lb-btn:hover, .lb-btn:focus-visible { background: rgba(255, 255, 255, .12); outline: none; }
+.lb-close { top: 8px; right: 8px; font-size: 34px; }
+.lb-prev { left: 8px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 8px; top: 50%; transform: translateY(-50%); }
+@media (max-width: 700px) {
+  .lb-stage { padding: 56px 12px 72px; }
+  .lb-prev, .lb-next { top: auto; bottom: 10px; transform: none; }
+}
