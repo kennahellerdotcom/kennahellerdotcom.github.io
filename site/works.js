@@ -4,6 +4,78 @@
 // "All" spreads each category evenly in its own order.
 window.WORKS = [
  {
+  "id": "apple",
+  "cat": "illustration",
+  "title": "Apple",
+  "client": "Forbidden Fruits",
+  "src": "illustration/apple.jpg",
+  "w": 1600,
+  "h": 1524
+ },
+ {
+  "id": "ff-cowboy-boot",
+  "cat": "illustration",
+  "title": "Cowboy Boot",
+  "client": "Forbidden Fruits",
+  "src": "illustration/FF_CowboyBoot.jpg",
+  "w": 1234,
+  "h": 1600
+ },
+ {
+  "id": "ff-sticker",
+  "cat": "illustration",
+  "title": "Forbidden Fruits Sticker",
+  "client": "Shudder",
+  "src": "illustration/FF_Sticker.jpg",
+  "w": 1600,
+  "h": 1318
+ },
+ {
+  "id": "forbidden-fruits-pattern",
+  "cat": "illustration",
+  "title": "Forbidden Fruits Pattern",
+  "client": "Shudder",
+  "src": "illustration/Forbidden fruits pattern.png",
+  "w": 1600,
+  "h": 1597
+ },
+ {
+  "id": "lawnmower",
+  "cat": "illustration",
+  "title": "Lawnmower",
+  "client": "Shudder",
+  "src": "illustration/lawnmower.png",
+  "w": 1280,
+  "h": 1600
+ },
+ {
+  "id": "louis-helen-of-troy",
+  "cat": "illustration",
+  "title": "Helen of Troy",
+  "client": "AMC — Interview with the Vampire",
+  "src": "illustration/Louis-HelenOfTroy.jpg",
+  "w": 1388,
+  "h": 1600
+ },
+ {
+  "id": "skullplant",
+  "cat": "illustration",
+  "title": "Skull Plant",
+  "client": "Shudder",
+  "src": "illustration/skullplant.png",
+  "w": 1280,
+  "h": 1600
+ },
+ {
+  "id": "zombiehand",
+  "cat": "illustration",
+  "title": "Zombie Hand",
+  "client": "Shudder",
+  "src": "illustration/Zombiehand.png",
+  "w": 1280,
+  "h": 1600
+ },
+ {
   "id": "ff-mini-stickers",
   "cat": "merch",
   "title": "Forbidden Fruit Mini Stickers",
