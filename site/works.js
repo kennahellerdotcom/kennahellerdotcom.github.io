@@ -4,24 +4,6 @@
 // "All" spreads each category evenly in its own order.
 window.WORKS = [
  {
-  "id": "london",
-  "cat": "illustration",
-  "title": "London",
-  "client": "Personal",
-  "src": "illustration/london.jpg",
-  "w": 1024,
-  "h": 1600
- },
- {
-  "id": "bananastand",
-  "cat": "illustration",
-  "title": "Banana Stand",
-  "client": "Personal",
-  "src": "illustration/bananastand.jpg",
-  "w": 1024,
-  "h": 1600
- },
- {
   "id": "apple",
   "cat": "illustration",
   "title": "Apple",
@@ -415,6 +397,24 @@ window.WORKS = [
   "client": "Personal",
   "src": "illustration/tofu.png",
   "w": 1600,
+  "h": 1600
+ },
+ {
+  "id": "london",
+  "cat": "illustration",
+  "title": "London",
+  "client": "Personal",
+  "src": "illustration/london.jpg",
+  "w": 1024,
+  "h": 1600
+ },
+ {
+  "id": "bananastand",
+  "cat": "illustration",
+  "title": "Banana Stand",
+  "client": "Personal",
+  "src": "illustration/bananastand.jpg",
+  "w": 1024,
   "h": 1600
  },
  {
