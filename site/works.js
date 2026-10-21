@@ -4,6 +4,24 @@
 // "All" spreads each category evenly in its own order.
 window.WORKS = [
  {
+  "id": "london",
+  "cat": "illustration",
+  "title": "London",
+  "client": "Personal",
+  "src": "illustration/london.jpg",
+  "w": 1024,
+  "h": 1600
+ },
+ {
+  "id": "bananastand",
+  "cat": "illustration",
+  "title": "Banana Stand",
+  "client": "Personal",
+  "src": "illustration/bananastand.jpg",
+  "w": 1024,
+  "h": 1600
+ },
+ {
   "id": "apple",
   "cat": "illustration",
   "title": "Apple",
@@ -797,7 +815,7 @@ window.WORKS = [
  },
  {
   "id": "quiet-place-red",
-  "cat": "illustration",
+  "cat": "poster",
   "title": "A Quiet Place Part II",
   "client": "Alt poster",
   "src": "illustration/4.jpg",
@@ -851,7 +869,7 @@ window.WORKS = [
  },
  {
   "id": "quiet-place-blue",
-  "cat": "illustration",
+  "cat": "poster",
   "title": "A Quiet Place Part II — Night",
   "client": "Alt poster",
   "src": "illustration/5.jpg",
@@ -895,15 +913,6 @@ window.WORKS = [
   "h": 604
  },
  {
-  "id": "harry-hamlin",
-  "cat": "poster",
-  "title": "In the Kitchen with Harry Hamlin",
-  "client": "AMC",
-  "src": "keyart/19.jpg",
-  "w": 600,
-  "h": 900
- },
- {
   "id": "lestat-tote",
   "cat": "merch",
   "title": "Lestat Tote",
@@ -914,7 +923,7 @@ window.WORKS = [
  },
  {
   "id": "yiddish-policemen",
-  "cat": "illustration",
+  "cat": "poster",
   "title": "The Yiddish Policemen's Union",
   "client": "Alt poster",
   "src": "illustration/6.jpg",
@@ -938,15 +947,6 @@ window.WORKS = [
   "src": "merch/1.jpg",
   "w": 1344,
   "h": 768
- },
- {
-  "id": "long-time-listener",
-  "cat": "poster",
-  "title": "Long Time Listener",
-  "client": "ALLBLK",
-  "src": "keyart/LTL_KA_2x3.jpg",
-  "w": 1067,
-  "h": 1600
  },
  {
   "id": "dtf-hat",
@@ -983,15 +983,6 @@ window.WORKS = [
   "src": "branding/santasend.png",
   "w": 1600,
   "h": 553
- },
- {
-  "id": "funny-thing-about-love",
-  "cat": "poster",
-  "title": "Funny Thing About Love",
-  "client": "ALLBLK",
-  "src": "keyart/ALLBLK_FTAL_KA_2x3_0429.png",
-  "w": 1067,
-  "h": 1600
  },
  {
   "id": "goat-tee",
