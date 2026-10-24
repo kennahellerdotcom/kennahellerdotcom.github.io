@@ -4,6 +4,15 @@
 // "All" spreads each category evenly in its own order.
 window.WORKS = [
  {
+  "id": "candle-tarot",
+  "cat": "illustration",
+  "title": "Candle Tarot",
+  "client": "Shudder",
+  "src": "illustration/SHUD_CandleTarot.png",
+  "w": 1200,
+  "h": 1500
+ },
+ {
   "id": "apple",
   "cat": "illustration",
   "title": "Apple",
